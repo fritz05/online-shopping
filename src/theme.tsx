@@ -29,8 +29,8 @@ const theme = extendTheme({
         },
         content: {
           maxW: 1000,
-          h: '100vh',
           bg: 'white',
+          padding: 10,
         },
       },
     },

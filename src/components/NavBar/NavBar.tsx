@@ -1,15 +1,16 @@
-import { Container, Box, Grid } from '@chakra-ui/react';
+import { Container, Box, Grid, UseDisclosureProps } from '@chakra-ui/react';
 
 import NavLogo from './NavLogo';
 import NavControl from './NavControl';
+import { OnOpenProps } from '../../types';
 
-function NavBar() {
+function NavBar({ onOpen }: OnOpenProps) {
   return (
     <Box padding="4" bg="custom.blue">
       <Container variant="base">
         <Grid templateColumns="repeat(6, 1fr)" gap={4}>
           <NavLogo />
-          <NavControl />
+          <NavControl onOpen={onOpen} />
         </Grid>
       </Container>
     </Box>
