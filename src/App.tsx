@@ -1,5 +1,11 @@
+import { NavBar, ProductList } from './components';
+
 function App() {
-  return <div>App Compontent</div>;
+  return (
+    <>
+      <NavBar /> <ProductList />
+    </>
+  );
 }
 
 export default App;
