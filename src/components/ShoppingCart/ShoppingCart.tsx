@@ -55,8 +55,9 @@ function ShoppingCart({ onClose, isOpen }: OnCloseProps) {
                   marginLeft="3"
                   color="custom.blue"
                   borderRadius="0"
+                  fontSize="sm"
                 >
-                  Clear Cart
+                  CLEAR CART
                 </Button>
                 <Button
                   variant="solid"
@@ -64,8 +65,9 @@ function ShoppingCart({ onClose, isOpen }: OnCloseProps) {
                   marginLeft="3"
                   color="custom.blue"
                   borderRadius="0"
+                  fontSize="sm"
                 >
-                  Check Out
+                  CHECK OUT
                 </Button>
               </Center>
             </Box>

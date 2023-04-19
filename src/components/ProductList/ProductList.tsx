@@ -1,47 +1,52 @@
-import { Box, Center, Container, Grid, Select, Text } from '@chakra-ui/react';
+import {
+  Box,
+  Button,
+  Center,
+  Container,
+  Grid,
+  Select,
+  Text,
+  useDisclosure,
+} from '@chakra-ui/react';
 import ProductItems from './ProductItem';
+import ProductDetails from './ProductDetails';
+import { memo, useState } from 'react';
 
 import type { ProductListTypeProps } from '../../types';
+import ProductFilter from './ProductFilter';
 
-function ProductList({ items }: ProductListTypeProps) {
+function ProductList({
+  items,
+  setFilterProductsHandler,
+}: ProductListTypeProps) {
+  const { isOpen, onOpen, onClose } = useDisclosure();
+
+  const [selectedItem, setSelectedItem] = useState({});
+
+  const setSelectItemHandler = (productId: string) => {
+    const filteredItem = items.find((items) => items.id === productId);
+    setSelectedItem(filteredItem || {});
+  };
+
   return (
     <Container variant="content" centerContent>
-      <Box
-        w="100%"
-        textAlign="right"
-        display="flex"
-        gap="3"
-        justifyContent="right"
-        alignItems="center"
-      >
-        <Text as="span" fontSize="x1" color="gray">
-          Category:
-        </Text>
-        <Select
-          bg="custom.gray"
-          display="inline-block"
-          maxWidth="150"
-          variant="outlined"
-          placeholder="Flushed"
-        />
-        <Text as="span" fontSize="x1" color="gray">
-          Price:
-        </Text>
-        <Select
-          bg="custom.gray"
-          display="inline-block"
-          maxWidth="150"
-          variant="outlined"
-          placeholder="Flushed"
-        />
-      </Box>
+      <ProductFilter setFilterProductsHandler={setFilterProductsHandler} />
       <Center>
         <Grid marginTop="10" templateColumns="repeat(3, 1fr)" gap={6}>
-          <ProductItems items={items} />
+          <ProductItems
+            selectItemHandler={setSelectItemHandler}
+            onOpen={onOpen}
+            items={items}
+          />
         </Grid>
       </Center>
+      <ProductDetails
+        selectedItem={selectedItem}
+        isOpen={isOpen}
+        onClose={onClose}
+      />
     </Container>
   );
 }
 
-export default ProductList;
+export default memo(ProductList);

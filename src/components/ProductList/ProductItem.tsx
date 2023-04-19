@@ -7,11 +7,27 @@ import {
   Stack,
   GridItem,
   Center,
+  Button,
 } from '@chakra-ui/react';
+import type { MouseEvent } from 'react';
+import { MouseEventHandler } from 'react';
 
-import type { ProductListTypeProps } from '../../types';
+import type { ProductListType } from '../../types';
 
-function ProductItems({ items }: ProductListTypeProps) {
+interface ProductItemsProps {
+  items: ProductListType[];
+  onOpen: MouseEventHandler<HTMLDivElement>;
+  selectItemHandler: (productId: string) => void;
+}
+
+function ProductItems({ items, onOpen, selectItemHandler }: ProductItemsProps) {
+  const onClickHandler =
+    (key: string) => (event: MouseEvent<HTMLDivElement>) => {
+      console.log(key);
+      onOpen(event);
+      selectItemHandler(key);
+    };
+
   return (
     <>
       {items.map((items) => {
@@ -27,7 +43,7 @@ function ProductItems({ items }: ProductListTypeProps) {
         };
 
         return (
-          <GridItem key={items.id}>
+          <GridItem onClick={onClickHandler(items.id)} key={items.id}>
             <Card
               maxW="sm"
               display="inline-block"
@@ -53,7 +69,7 @@ function ProductItems({ items }: ProductListTypeProps) {
                     {productName}
                   </Heading>
 
-                  <Text color="blue.600" fontSize="2xl">
+                  <Text color="custom.blue" fontSize="lg">
                     PHP {items.unitPrice}
                   </Text>
                 </Stack>

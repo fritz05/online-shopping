@@ -8,10 +8,19 @@ export interface ProductListType {
   category: string;
   imageUrl: string;
 }
+``;
 
-export interface ProductListTypeProps {
+export interface FilterProductProps {
+  setFilterProductsHandler: (filterType: string, filterValue: string) => void;
+}
+
+export type NavProps = OnOpenProps & FilterProductProps;
+
+export interface ProductItemTypeProps {
   items: ProductListType[];
 }
+
+export type ProductListTypeProps = ProductItemTypeProps & FilterProductProps;
 
 export type OnCloseProps = Omit<
   Required<UseDisclosureProps>,
