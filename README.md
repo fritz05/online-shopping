@@ -1,9 +1,11 @@
 # online-shopping
 
 ### Description
+
 - Sample Online Shopping Application
 
 ### Tech/Libraries Used
+
 - React
 - Typescript
 - Vite
@@ -14,5 +16,6 @@
 - Yarn
 
 ### How to run
+
 - yarn && yarn dev
 - after the compilation finishes press 'o' key on the terminal
