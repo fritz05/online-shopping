@@ -16,6 +16,7 @@
 - Yarn
 
 ### How to run
-
-- yarn && yarn dev
-- after the compilation finishes press 'o' key on the terminal
+Steps:
+1. install dependencies using `yarn install`
+2. after the installation run `yarn dev`
+3. if the compilation finishes successfully, press 'o' key on the terminal
