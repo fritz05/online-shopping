@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 import { NavBarLayout, ProductList } from './components';
-import type { ProductListType } from './types';
+import type { CartListType, ProductListType } from './types';
 import items from './data/items.json';
 import { sortProducts } from './App.util';
 
@@ -58,15 +58,68 @@ function App() {
 
   const sortedProducts = sortProducts(setProductList, sortPrice);
 
+  // Handle Shopping Cart
+  const [cartList, setCartList] = useState<CartListType[]>([]);
+
+  const addCartListHandler = (productId: string) => {
+    setCartList((prevData) => {
+      let cartList = [];
+      const checkDuplicate = prevData.find((item) => {
+        return item.id === productId;
+      });
+
+      if (!!checkDuplicate) {
+        cartList = prevData.map((items) => {
+          if (items.id === productId) {
+            return { id: items.id, quantity: items.quantity + 1 };
+          }
+
+          return items;
+        });
+      } else {
+        const addedToCart = {
+          id: productId,
+          quantity: 1,
+        };
+        cartList = [...prevData, addedToCart];
+      }
+
+      return cartList;
+    });
+  };
+
+  const modifyItemQuantityHandler = (
+    productId: string,
+    modifiedQuantity: number,
+  ) => {
+    setCartList((prevData) =>
+      modifiedQuantity === 0
+        ? prevData.filter((item) => item.id !== productId)
+        : prevData.map((item) =>
+            item.id === productId
+              ? { id: item.id, quantity: modifiedQuantity }
+              : item,
+          ),
+    );
+  };
+
+  const clearCartHandler = () => {
+    setCartList([]);
+  };
+
   return (
     <>
       <NavBarLayout
+        cartList={cartList}
         searchProduct={searchProduct}
         setFilterProductsHandler={filterProductsHandler}
+        setModifyItemQuantityHandler={modifyItemQuantityHandler}
+        setClearCartHandler={clearCartHandler}
       />
       <ProductList
         setFilterProductsHandler={filterProductsHandler}
         items={sortedProducts}
+        addCartListHandler={addCartListHandler}
       />
     </>
   );

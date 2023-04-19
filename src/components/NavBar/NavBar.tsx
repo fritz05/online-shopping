@@ -2,8 +2,7 @@ import { Container, Box, Grid } from '@chakra-ui/react';
 
 import NavLogo from './NavLogo';
 import NavControl from './NavControl';
-import { NavProps } from '../../types';
-
+import type { NavProps } from '../../types';
 interface NavBarProps extends NavProps {
   searchProduct: string;
 }

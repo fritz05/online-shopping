@@ -19,7 +19,6 @@ function ProductFilter({ setFilterProductsHandler }: FilterProductProps) {
   const onChangeHandler =
     (filterType: string) => (event: ChangeEvent<HTMLSelectElement>) => {
       const filterValue = event.target.value;
-      console.log(filterValue);
       setFilterProductsHandler(filterType, filterValue);
     };
 

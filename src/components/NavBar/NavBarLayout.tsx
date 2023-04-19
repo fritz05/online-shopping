@@ -3,15 +3,27 @@ import { useDisclosure } from '@chakra-ui/react';
 import { ShoppingCart } from '../ShoppingCart';
 import NavBar from './NavBar';
 
-import { FilterProductProps } from '../../types';
+import type {
+  CartListType,
+  ClearCartHandlerType,
+  FilterProductProps,
+  ModifyItemQuantityHandlerType,
+} from '../../types';
 
-interface NavBarLayout extends FilterProductProps {
+type NavBarLayoutProps = FilterProductProps &
+  ModifyItemQuantityHandlerType &
+  ClearCartHandlerType;
+interface NavBarLayout extends NavBarLayoutProps {
   searchProduct: string;
+  cartList: CartListType[];
 }
 
 function NavBarLayout({
+  setModifyItemQuantityHandler,
   setFilterProductsHandler,
   searchProduct,
+  cartList,
+  setClearCartHandler,
 }: NavBarLayout) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   return (
@@ -21,7 +33,13 @@ function NavBarLayout({
         onOpen={onOpen}
         searchProduct={searchProduct}
       />
-      <ShoppingCart onClose={onClose} isOpen={isOpen} />
+      <ShoppingCart
+        cartList={cartList}
+        onClose={onClose}
+        isOpen={isOpen}
+        setModifyItemQuantityHandler={setModifyItemQuantityHandler}
+        setClearCartHandler={setClearCartHandler}
+      />
     </>
   );
 }

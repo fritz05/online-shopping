@@ -1,6 +1,6 @@
 import { Heading, GridItem, Text, Button } from '@chakra-ui/react';
 import { AiFillShop } from 'react-icons/ai';
-import { OnOpenProps } from '../../types';
+
 function NavLogo() {
   return (
     <GridItem colSpan={2}>

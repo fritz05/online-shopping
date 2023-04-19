@@ -14,10 +14,19 @@ import {
   Image,
   Heading,
   Text,
+  Center,
 } from '@chakra-ui/react';
-import { OnCloseProps, ProductListType } from '../../types';
+import withReactContent from 'sweetalert2-react-content';
+import Swal from 'sweetalert2';
 
-interface ProductDetailsProps extends OnCloseProps {
+import type {
+  AddToCartHandlerType,
+  OnCloseProps,
+  ProductListType,
+} from '../../types';
+
+type ProductDetailsType = OnCloseProps & AddToCartHandlerType;
+interface ProductDetailsProps extends ProductDetailsType {
   selectedItem: Partial<ProductListType>;
 }
 
@@ -25,8 +34,24 @@ function ProductDetails({
   isOpen,
   onClose,
   selectedItem,
+  addCartListHandler,
 }: ProductDetailsProps) {
   const isItemExist = Object.keys(selectedItem).length > 0;
+
+  const addToCartHandler = (productId: string) => () => {
+    const alertDialogue = withReactContent(Swal);
+
+    onClose();
+    alertDialogue.fire({
+      title: <strong>Added to cart!</strong>,
+      html: <h6>Your product has been added to cart</h6>,
+      icon: 'success',
+      showConfirmButton: false,
+      timer: 3000,
+    });
+
+    addCartListHandler(productId);
+  };
 
   return (
     <>
@@ -39,11 +64,15 @@ function ProductDetails({
             <ModalBody>
               <Card maxW="sm">
                 <CardBody>
-                  <Image
-                    src={selectedItem.imageUrl}
-                    alt="Green double couch with wooden legs"
-                    borderRadius="lg"
-                  />
+                  <Center>
+                    <Image
+                      src={selectedItem.imageUrl}
+                      alt="Green double couch with wooden legs"
+                      borderRadius="lg"
+                      boxSize="350"
+                    />
+                  </Center>
+
                   <Stack mt="6" spacing="3">
                     <Heading size="md">{selectedItem.productName}</Heading>
                     <Text>{selectedItem.description}</Text>
@@ -65,6 +94,7 @@ function ProductDetails({
                 borderRadius="sm"
                 colorScheme="blue"
                 fontSize="sm"
+                onClick={addToCartHandler(selectedItem.id ?? '')}
               >
                 ADD TO CART
               </Button>

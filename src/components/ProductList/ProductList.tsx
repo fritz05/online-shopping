@@ -1,13 +1,4 @@
-import {
-  Box,
-  Button,
-  Center,
-  Container,
-  Grid,
-  Select,
-  Text,
-  useDisclosure,
-} from '@chakra-ui/react';
+import { Center, Container, Grid, useDisclosure } from '@chakra-ui/react';
 import ProductItems from './ProductItem';
 import ProductDetails from './ProductDetails';
 import { memo, useState } from 'react';
@@ -18,6 +9,7 @@ import ProductFilter from './ProductFilter';
 function ProductList({
   items,
   setFilterProductsHandler,
+  addCartListHandler,
 }: ProductListTypeProps) {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
@@ -44,6 +36,7 @@ function ProductList({
         selectedItem={selectedItem}
         isOpen={isOpen}
         onClose={onClose}
+        addCartListHandler={addCartListHandler}
       />
     </Container>
   );

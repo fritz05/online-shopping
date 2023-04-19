@@ -12,10 +12,10 @@ import type { ChangeEvent } from 'react';
 import { FiSearch } from 'react-icons/fi';
 import { RiShoppingCartLine } from 'react-icons/ri';
 import { NavProps } from '../../types';
+
 interface NavControlProps extends NavProps {
   searchProduct: string;
 }
-
 function NavControl({
   onOpen,
   setFilterProductsHandler,

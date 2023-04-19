@@ -7,23 +7,20 @@ import {
   Stack,
   GridItem,
   Center,
-  Button,
 } from '@chakra-ui/react';
 import type { MouseEvent } from 'react';
 import { MouseEventHandler } from 'react';
 
-import type { ProductListType } from '../../types';
+import type { ProductListType, SelectItemHandlerType } from '../../types';
 
-interface ProductItemsProps {
+interface ProductItemsProps extends SelectItemHandlerType {
   items: ProductListType[];
   onOpen: MouseEventHandler<HTMLDivElement>;
-  selectItemHandler: (productId: string) => void;
 }
 
 function ProductItems({ items, onOpen, selectItemHandler }: ProductItemsProps) {
   const onClickHandler =
     (key: string) => (event: MouseEvent<HTMLDivElement>) => {
-      console.log(key);
       onOpen(event);
       selectItemHandler(key);
     };
